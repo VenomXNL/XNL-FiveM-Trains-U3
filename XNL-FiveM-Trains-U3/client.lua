@@ -139,21 +139,21 @@
 --=============================================================
 PayWithBank 			= 0		-- Change this to 1 if you want users to pay with bank card (NOTE: Do implement your OWN banking system here please!)
 UserBankIDi 			= 3		-- 1 = Maze, 2 = Bank Of Liberty, 3 = Fleeca  (This will show the corresponding message when the player doesn't have enoug money)
-AllowEnterTrainWanted	= 0		-- Change to 1 if you want to allow players to ENTER the train when they have a wanted level
-TicketPrice				= 25	-- Change to any value YOU think is suitable for a Metro Ticket in your (RP) Server
-StationsExitScanRadius	= 15.0	-- I would RECOMMEND to leave it at 15 for best detection in trains, this variable sets the 'scan radius size' per station marker.
-								-- NOTE: The StationsExitScanRadius HAS TO BE A FLOAT! (15.0 for example (which is the default!))
+AllowEnterTrainWanted		= 0		-- Change to 1 if you want to allow players to ENTER the train when they have a wanted level
+TicketPrice			= 25		-- Change to any value YOU think is suitable for a Metro Ticket in your (RP) Server
+StationsExitScanRadius		= 15.0		-- I would RECOMMEND to leave it at 15 for best detection in trains, this variable sets the 'scan radius size' per station marker.
+						-- NOTE: The StationsExitScanRadius HAS TO BE A FLOAT! (15.0 for example (which is the default!))
 
 UseTwoMetros			= 1		-- KEEP IN MIND: When using two Metro's, players on one of the trams CAN be 'thrown out' when the trams pass eachother
-								-- since the Metro's will PASS THROUGH EACH OTHER at some point! (this is inevitable! since the Metro track is just ONE TRACK!)
-								-- it looks like they are two tracks in the game, but at both ends it will make a large 'u turn'!
-								-- so if you do NOT want your players to be thrown out (and POSSIBLY killed) by a Metro, then set this value to 0!
-								-- When set to 0, the script will only spawn ONE Metro Train instead of two (each in opposite direction)
+						-- since the Metro's will PASS THROUGH EACH OTHER at some point! (this is inevitable! since the Metro track is just ONE TRACK!)
+						-- it looks like they are two tracks in the game, but at both ends it will make a large 'u turn'!
+						-- so if you do NOT want your players to be thrown out (and POSSIBLY killed) by a Metro, then set this value to 0!
+						-- When set to 0, the script will only spawn ONE Metro Train instead of two (each in opposite direction)
 
-ReportTerroristOnMetro	= true	-- When set to true the player will get an INSTANT wanted level of 4 when shooting on the Metro,
-								-- this to 'contribute' to 'terroristic behavior' realism on (Real-Life) RP servers (where it's not normal either to
-								-- just (randomly) shoot while on/in public transportation!) if you want to ENABLE shooting from the Metro (as passenger)
-								-- then change this value to false
+ReportTerroristOnMetro	= true			-- When set to true the player will get an INSTANT wanted level of 4 when shooting on the Metro,
+						-- this to 'contribute' to 'terroristic behavior' realism on (Real-Life) RP servers (where it's not normal either to
+						-- just (randomly) shoot while on/in public transportation!) if you want to ENABLE shooting from the Metro (as passenger)
+						-- then change this value to false
 --===================================================
 -- Variables used BY the script, do NOT modify them
 -- unless you know what you are doing!
