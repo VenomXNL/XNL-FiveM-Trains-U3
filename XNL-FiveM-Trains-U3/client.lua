@@ -732,25 +732,23 @@ Citizen.CreateThread(function()
 			
 				-- Only show the "Press [E] to buy...." message near the ticket machine if the player does NOT own a ticket already
 				-- Do note that it IS possible to 'activate' the ticket machine again though (but will give a different message ;) )
-				if not PlayerHasMetroTicket then
-					x,y,z = table.unpack(GetEntityCoords(playerPed, true))
-					-- And then only need to keep checking (scanning cords) if the player is not near the Ticket Machine (anymore)
-					if not IsPlayerNearTicketMachine then
-						for k,v in pairs(TicketMachines) do
-							TicketMachine = GetClosestObjectOfType(x, y, z, 0.75, GetHashKey(v), false)
-							if DoesEntityExist(TicketMachine) then
-								currentTicketMachine = TicketMachine
-								TicketMX, TicketMY, TicketMZ = table.unpack(GetOffsetFromEntityInWorldCoords(TicketMachine, 0.0, -.85, 0.0))
-								IsPlayerNearTicketMachine = true
-							end
+				x,y,z = table.unpack(GetEntityCoords(playerPed, true))
+				-- And then only need to keep checking (scanning cords) if the player is not near the Ticket Machine (anymore)
+				if not IsPlayerNearTicketMachine then
+					for k,v in pairs(TicketMachines) do
+						TicketMachine = GetClosestObjectOfType(x, y, z, 0.75, GetHashKey(v), false)
+						if DoesEntityExist(TicketMachine) then
+							currentTicketMachine = TicketMachine
+							TicketMX, TicketMY, TicketMZ = table.unpack(GetOffsetFromEntityInWorldCoords(TicketMachine, 0.0, -.85, 0.0))
+							IsPlayerNearTicketMachine = true
 						end
-					else
-						if not DoesEntityExist(currentTicketMachine) then
-							IsPlayerNearTicketMachine = false -- If for some (weird) reasons the ticked machine (suddenly)
-						else								  --doesn't exist anymore, tell the script that the player isn't near one anymore
-							if GetDistanceBetweenCoords(x,y,z, TicketMX, TicketMY, TicketMZ, true) > 2.0 then
-								IsPlayerNearTicketMachine = false -- And do the same if the player is more than a radius of 2.0 away from the ticket machine
-							end
+					end
+				else
+					if not DoesEntityExist(currentTicketMachine) then
+						IsPlayerNearTicketMachine = false -- If for some (weird) reasons the ticked machine (suddenly)
+					else								  --doesn't exist anymore, tell the script that the player isn't near one anymore
+						if GetDistanceBetweenCoords(x,y,z, TicketMX, TicketMY, TicketMZ, true) > 2.0 then
+							IsPlayerNearTicketMachine = false -- And do the same if the player is more than a radius of 2.0 away from the ticket machine
 						end
 					end
 				end
