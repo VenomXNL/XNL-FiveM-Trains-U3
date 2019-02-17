@@ -1,4 +1,7 @@
 --[[
+	WARNING WARNING WARNING!!
+		Disable the XNLforceTrains function on line 456 BEFORE you use the script online! with that command you can force the trains to spawn (for testing only!)
+	WARNING WARNING WARNING!!
 =====================================================================================================================================	
     License, Credits, Basic information, FAQ
 =====================================================================================================================================	
@@ -139,21 +142,21 @@
 --=============================================================
 PayWithBank 			= 0		-- Change this to 1 if you want users to pay with bank card (NOTE: Do implement your OWN banking system here please!)
 UserBankIDi 			= 3		-- 1 = Maze, 2 = Bank Of Liberty, 3 = Fleeca  (This will show the corresponding message when the player doesn't have enoug money)
-AllowEnterTrainWanted		= 0		-- Change to 1 if you want to allow players to ENTER the train when they have a wanted level
-TicketPrice			= 25		-- Change to any value YOU think is suitable for a Metro Ticket in your (RP) Server
-StationsExitScanRadius		= 15.0		-- I would RECOMMEND to leave it at 15 for best detection in trains, this variable sets the 'scan radius size' per station marker.
-						-- NOTE: The StationsExitScanRadius HAS TO BE A FLOAT! (15.0 for example (which is the default!))
+AllowEnterTrainWanted	= 0		-- Change to 1 if you want to allow players to ENTER the train when they have a wanted level
+TicketPrice				= 25	-- Change to any value YOU think is suitable for a Metro Ticket in your (RP) Server
+StationsExitScanRadius	= 15.0	-- I would RECOMMEND to leave it at 15 for best detection in trains, this variable sets the 'scan radius size' per station marker.
+								-- NOTE: The StationsExitScanRadius HAS TO BE A FLOAT! (15.0 for example (which is the default!))
 
 UseTwoMetros			= 1		-- KEEP IN MIND: When using two Metro's, players on one of the trams CAN be 'thrown out' when the trams pass eachother
-						-- since the Metro's will PASS THROUGH EACH OTHER at some point! (this is inevitable! since the Metro track is just ONE TRACK!)
-						-- it looks like they are two tracks in the game, but at both ends it will make a large 'u turn'!
-						-- so if you do NOT want your players to be thrown out (and POSSIBLY killed) by a Metro, then set this value to 0!
-						-- When set to 0, the script will only spawn ONE Metro Train instead of two (each in opposite direction)
+								-- since the Metro's will PASS THROUGH EACH OTHER at some point! (this is inevitable! since the Metro track is just ONE TRACK!)
+								-- it looks like they are two tracks in the game, but at both ends it will make a large 'u turn'!
+								-- so if you do NOT want your players to be thrown out (and POSSIBLY killed) by a Metro, then set this value to 0!
+								-- When set to 0, the script will only spawn ONE Metro Train instead of two (each in opposite direction)
 
-ReportTerroristOnMetro	= true			-- When set to true the player will get an INSTANT wanted level of 4 when shooting on the Metro,
-						-- this to 'contribute' to 'terroristic behavior' realism on (Real-Life) RP servers (where it's not normal either to
-						-- just (randomly) shoot while on/in public transportation!) if you want to ENABLE shooting from the Metro (as passenger)
-						-- then change this value to false
+ReportTerroristOnMetro	= true	-- When set to true the player will get an INSTANT wanted level of 4 when shooting on the Metro,
+								-- this to 'contribute' to 'terroristic behavior' realism on (Real-Life) RP servers (where it's not normal either to
+								-- just (randomly) shoot while on/in public transportation!) if you want to ENABLE shooting from the Metro (as passenger)
+								-- then change this value to false
 --===================================================
 -- Variables used BY the script, do NOT modify them
 -- unless you know what you are doing!
@@ -258,78 +261,66 @@ local anim = "mini@atmenter"
 
 Citizen.CreateThread(function()
 	function LoadTrainModels() -- f*ck your rails, too!
-		--=================================================================
-		-- IMPORTANT NOTE: This function has been modified by VenomXNL
-		-- I have disabled the RequestModel(tempmodel) line(s) within
-		-- the While-loop(s). Since I suspect that it could only cause
-		-- cause issues when it would take (a bit) longer to load/request
-		-- the model (not directly in the game but with memory for example)
-		-- If it doesn't just correct me of course :) I don't know much
-		-- on how the game/engine/rage/lua or FiveM handles these model
-		-- loading procedures, but i SUSPECT even if it doesn't do 'harm'
-		-- that it's kinda 'pointless' to keep loading a model in an 
-		-- infinite loop ;) :)
-		--=================================================================
 		tempmodel = GetHashKey("freight")
 		RequestModel(tempmodel)
 		while not HasModelLoaded(tempmodel) do
-			--RequestModel(tempmodel)
+			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
 		
 		tempmodel = GetHashKey("freightcar")
 		RequestModel(tempmodel)
 		while not HasModelLoaded(tempmodel) do
-			--RequestModel(tempmodel)
+			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
 		
 		tempmodel = GetHashKey("freightgrain")
 		RequestModel(tempmodel)
 		while not HasModelLoaded(tempmodel) do
-			--RequestModel(tempmodel)
+			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
 		
 		tempmodel = GetHashKey("freightcont1")
 		RequestModel(tempmodel)
 		while not HasModelLoaded(tempmodel) do
-			--RequestModel(tempmodel)
+			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
 		
 		tempmodel = GetHashKey("freightcont2")
 		RequestModel(tempmodel)
 		while not HasModelLoaded(tempmodel) do
-			--RequestModel(tempmodel)
+			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
 		
 		tempmodel = GetHashKey("freighttrailer")
 		RequestModel(tempmodel)
 		while not HasModelLoaded(tempmodel) do
-			--RequestModel(tempmodel)
+			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
 
 		tempmodel = GetHashKey("tankercar")
 		RequestModel(tempmodel)
 		while not HasModelLoaded(tempmodel) do
-			--RequestModel(tempmodel)
+			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
 		
 		tempmodel = GetHashKey("metrotrain")
 		RequestModel(tempmodel)
 		while not HasModelLoaded(tempmodel) do
-			--RequestModel(tempmodel)
+			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
 		
 		tempmodel = GetHashKey("s_m_m_lsmetro_01")
 		RequestModel(tempmodel)
 		while not HasModelLoaded(tempmodel) do
-			--RequestModel(tempmodel)
+			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
 		print("XNL Log: Train Models Loaded" )
@@ -369,14 +360,33 @@ Citizen.CreateThread(function()
 		Wait(100)
 		Train = CreateMissionTrain(math.random(0,22), x,y,z,yesorno)
 		print("XNL Log: Train 1 created (Freight)." )
-
+		while not DoesEntityExist(Train) do
+			Wait(800)
+			print("XNL Log: Waiting for Freight to be created" )
+		end
+		Wait(200) -- Added a small 'waiting' while the train is loaded (to prevent the)
+				  -- random unexplained spawning of the freight train on the Metro Rails
+		
 		MetroTrain = CreateMissionTrain(24,40.2,-1201.3,31.0,true) -- these ones have pre-defined spawns since they are a pain to set up
 		print("XNL Log: Train 2 created (Metro)." )
+		while not DoesEntityExist(MetroTrain) do
+			Wait(800)
+			print("XNL Log: Waiting for Metro Train 1 to be created" ) -- Also wait until the train entity has actually been created
+		end
+		Wait(200) -- Added a small 'waiting' while the train is loaded (to prevent the)
+				  -- random unexplained spawning of the freight train on the Metro Rails
+		
 		if UseTwoMetros == 1 then
 			MetroTrain2 = CreateMissionTrain(24,-618.0,-1476.8,16.2,true)
 			print("XNL Log: Train 3 created (Metro #2)." )
+			while not DoesEntityExist(MetroTrain2) do
+				Wait(800)
+				print("XNL Log: Waiting for Metro Train 2 to be created" )  -- Also wait until the train entity has actually been created
+			end
 		end
-		
+		Wait(200) -- Added a small 'waiting' while the train is loaded (to prevent the)
+				  -- random unexplained spawning of the freight train on the Metro Rails
+
 		TrainDriverHash = GetHashKey("s_m_m_lsmetro_01")
 
 		-- By making a refrence to the drivers we can call them further on to make them invincible for example.
@@ -443,9 +453,9 @@ end)
 -- server you should close all clients to make sure that the
 -- trains will dissapear.
 --=============================================================
---RegisterCommand("XNLforcetrains",function(source, args)
---	StartTrain()
---end)
+RegisterCommand("XNLforcetrains",function(source, args)
+	StartTrain()
+end)
 
 
 Citizen.CreateThread(function()
