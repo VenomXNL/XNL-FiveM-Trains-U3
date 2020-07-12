@@ -1,3 +1,19 @@
+	================================================================================
+	NOTE!!!!!!! DO NOT Post/open new issues!
+	I'm NO LONGER WORKING ON THIS PROJECT AT ALL
+	IF there are questions, help needed or anything, please use the FiveM FORUM
+	topic to discuss and help each other.
+
+	This mod contains SERIOUS ISSUES due to several conflicting scripts, and it's
+	NOT COMPATIBLE WITH ONESYNC! (NO It's NOT a simple 'hardcap problem'!, this script
+	uses/used native game spawning calls which WILL NOT WORK with OneSync.)
+
+	If anyone wants to 'take over' this project, then you are free to do so :)
+	If you do, just be respectful and credit the original authors (me AND Blumlaut),
+	if you resume on my/our work.
+	================================================================================
+
+
 	Based on/inspired by: 
 	Blumlaut (FiveM Community) / Bluethefurry (Github)
 	Original Post:	 https://forum.fivem.net/t/release-trains/28841
