@@ -4,38 +4,35 @@
 -- Original Post:	 https://forum.fivem.net/t/release-trains/28841
 -- Original Script:  https://github.com/Bluethefurry/FiveM-Trains/releases
 --========================================================================
+trainspawned = false
 PlayerCount = 0
 list = {}
 
-
-RegisterServerEvent("hardcap:playerActivated")
 RegisterServerEvent("playerDropped")
 
-function ActivateTrain ()
-	if (PlayerCount) == 1 then
-		TriggerClientEvent('StartTrain', GetHostId())
-	else
-		SetTimeout(15000,ActivateTrain)
-	end
-end
-
---snippet from hardcap to make PlayerCount work
--- yes i know i'm lazy
-AddEventHandler('hardcap:playerActivated', function()
-  if not list[source] then
-    PlayerCount = PlayerCount + 1
-    list[source] = true
-		if (PlayerCount) == 1 then -- new session?
-			SetTimeout(15000,ActivateTrain)
+RegisterServerEvent("XNL-Trains:playerconnected")
+AddEventHandler('XNL-Trains:playerconnected', function()
+	if not list[source] then
+		PlayerCount = PlayerCount + 1
+		list[source] = true
+		if (PlayerCount) == 1 or not trainspawned then -- new session?
+			TriggerClientEvent('StartTrain', source)
+			trainspawned = true
+		else
+			if (PlayerCount) == 0 then
+				trainspawned = false
+			end
 		end
-  end
+	end
 end)
 
+RegisterServerEvent("playerDropped")
 AddEventHandler('playerDropped', function()
-  if list[source] then
-    PlayerCount = PlayerCount - 1
-    list[source] = nil
-  end
+	if list[source] then
+		PlayerCount = PlayerCount - 1
+		list[source] = nil
+	end
+	if (PlayerCount) == 0 then
+		trainspawned = false
+	end
 end)
-
-
