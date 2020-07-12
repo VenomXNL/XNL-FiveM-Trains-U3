@@ -437,6 +437,7 @@ Citizen.CreateThread(function()
 		SetModelAsNoLongerNeeded(TrainDriverHash)
 
 		print("XNL Log: Train System Started, you are currently 'host' for the trains." )
+		TriggerServerEvent('XNL-Trains:playerconnected')
 	end
 
 	AddEventHandler("StartTrain", StartTrain)
@@ -858,3 +859,7 @@ function XNLTeleportPlayerToNearestMetroExit()
 	end
 	return false -- The function did NOT detected the player within one of the radius markers at the stations
 end
+
+AddEventHandler("playerSpawn", function()
+	TriggerServerEvent('XNL-Trains:playerconnected')
+end)
