@@ -1,20 +1,6 @@
 	================================================================================
-	NOTE!!!!!!! DO NOT Post/open new issues!
-	I'm NO LONGER WORKING ON THIS PROJECT AT ALL
 	IF there are questions, help needed or anything, please use the FiveM FORUM
 	topic to discuss and help each other.
-
-	This mod contains SERIOUS ISSUES due to several conflicting scripts, 
-
-	Appearently those whom complained to me about it not working with THEIR OneSync:
-	I just received several screenshots of the script actally working IN ONESYNC.
-	So it DOES work, however it still does seem to conflict with several other functions
-	and I DO NOT KNOW where, how or why (I/we didn't had issues though), but for that matter:
-	I have stopped developing FiveM Mod's anyway ;)
-
-	If anyone wants to 'take over' this project, then you are free to do so :)
-	If you do, just be respectful and credit the original authors (me AND Blumlaut),
-	if you resume on my/our work.
 	================================================================================
 
 
@@ -22,8 +8,9 @@
 	Blumlaut (FiveM Community) / Bluethefurry (Github)
 	Original Post:	 https://forum.fivem.net/t/release-trains/28841
 	Original Script: https://github.com/Bluethefurry/FiveM-Trains/releases
-	
-	(Re-)Created by: VenomXNL
+	Reworked by VenomXNL: https://forum.cfx.re/t/release-fivem-freight-train-ai-and-enterable-trams-as-passenger-suited-for-roleplay-to/
+
+	(Re-) Worked by: Nickoos
 	License: Use it as you please but do have decency and respect by crediting the original creators :)
 	
 	What is it?: A very extensive Train and (well mostely) Metro Addon for FiveM
@@ -141,4 +128,4 @@
 	I hope this code/addon is usefull for some people or that they might learn from it by using parts of it :)
 	
 	Greets,
-	VenomXNL
+	VenomXNL & Nickoos

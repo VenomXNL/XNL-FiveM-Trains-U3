@@ -1,7 +1,4 @@
 --[[
-	WARNING WARNING WARNING!!
-		Disable the XNLforceTrains function on line 456 BEFORE you use the script online! with that command you can force the trains to spawn (for testing only!)
-	WARNING WARNING WARNING!!
 =====================================================================================================================================	
     License, Credits, Basic information, FAQ
 =====================================================================================================================================	
@@ -132,31 +129,6 @@
 =====================================================================================================================================	
 ]]
 
-
-
---=============================================================
--- Settings you CAN change and are meant to be changed, YAY :P
--- I do NOT use these on my server but have implemented it for
--- other users to make it more easy to adapt to their roleplay
--- server for example.
---=============================================================
-PayWithBank 			= 0		-- Change this to 1 if you want users to pay with bank card (NOTE: Do implement your OWN banking system here please!)
-UserBankIDi 			= 3		-- 1 = Maze, 2 = Bank Of Liberty, 3 = Fleeca  (This will show the corresponding message when the player doesn't have enoug money)
-AllowEnterTrainWanted	= 0		-- Change to 1 if you want to allow players to ENTER the train when they have a wanted level
-TicketPrice				= 25	-- Change to any value YOU think is suitable for a Metro Ticket in your (RP) Server
-StationsExitScanRadius	= 15.0	-- I would RECOMMEND to leave it at 15 for best detection in trains, this variable sets the 'scan radius size' per station marker.
-								-- NOTE: The StationsExitScanRadius HAS TO BE A FLOAT! (15.0 for example (which is the default!))
-
-UseTwoMetros			= 1		-- KEEP IN MIND: When using two Metro's, players on one of the trams CAN be 'thrown out' when the trams pass eachother
-								-- since the Metro's will PASS THROUGH EACH OTHER at some point! (this is inevitable! since the Metro track is just ONE TRACK!)
-								-- it looks like they are two tracks in the game, but at both ends it will make a large 'u turn'!
-								-- so if you do NOT want your players to be thrown out (and POSSIBLY killed) by a Metro, then set this value to 0!
-								-- When set to 0, the script will only spawn ONE Metro Train instead of two (each in opposite direction)
-
-ReportTerroristOnMetro	= true	-- When set to true the player will get an INSTANT wanted level of 4 when shooting on the Metro,
-								-- this to 'contribute' to 'terroristic behavior' realism on (Real-Life) RP servers (where it's not normal either to
-								-- just (randomly) shoot while on/in public transportation!) if you want to ENABLE shooting from the Metro (as passenger)
-								-- then change this value to false
 --===================================================
 -- Variables used BY the script, do NOT modify them
 -- unless you know what you are doing!
@@ -168,17 +140,8 @@ IsPlayerInMetro = false
 PlayerHasMetroTicket = false
 IsPlayerUsingTicketMachine = false
 ShowingExitMetroMessage = false
+EverythingisK = false
 
--- These are the locations of which 'the host' (well his/her script) will
--- pick a random location to spawn a new (Freight) train
-TrainLocations = {
-	{2533.0,2833.0,38.0},
-	{2606.0,2927.0,40.0},
-	{2463.0,3872.0,38.8},
-	{1164.0,6433.0,32.0},
-	{537.0,-1324.1,29.1},
-	{219.1,-2487.7,6.0}
-}
 
 --===================================================
 -- These are radius locations (multiple per station)
@@ -256,7 +219,7 @@ local XNLMetroScanPoints = {
 }
 
 
-local TicketMachines = {'prop_train_ticket_02', 'v_serv_tu_statio3_'}
+local TicketMachines = {'prop_train_ticket_02', 'prop_train_ticket_02_tu', 'v_serv_tu_statio3_'}
 local anim = "mini@atmenter"
 
 Citizen.CreateThread(function()
@@ -323,7 +286,9 @@ Citizen.CreateThread(function()
 			RequestModel(tempmodel)
 			Citizen.Wait(0)
 		end
-		print("XNL Log: Train Models Loaded" )
+		if Debug then 
+			if Debug then print("XNL Log: Train Models Loaded" ) end
+		end
 	end
 
 	LoadTrainModels()
@@ -359,29 +324,29 @@ Citizen.CreateThread(function()
 		DeleteAllTrains()
 		Wait(100)
 		Train = CreateMissionTrain(math.random(0,22), x,y,z,yesorno)
-		print("XNL Log: Train 1 created (Freight)." )
+		if Debug then print("XNL Log: Train 1 created (Freight)." ) end
 		while not DoesEntityExist(Train) do
 			Wait(800)
-			print("XNL Log: Waiting for Freight to be created" )
+			if Debug then print("XNL Log: Waiting for Freight to be created" ) end
 		end
 		Wait(200) -- Added a small 'waiting' while the train is loaded (to prevent the)
 				  -- random unexplained spawning of the freight train on the Metro Rails
 		
 		MetroTrain = CreateMissionTrain(24,40.2,-1201.3,31.0,true) -- these ones have pre-defined spawns since they are a pain to set up
-		print("XNL Log: Train 2 created (Metro)." )
+		if Debug then print("XNL Log: Train 2 created (Metro)." ) end
 		while not DoesEntityExist(MetroTrain) do
 			Wait(800)
-			print("XNL Log: Waiting for Metro Train 1 to be created" ) -- Also wait until the train entity has actually been created
+			if Debug then print("XNL Log: Waiting for Metro Train 1 to be created" ) end -- Also wait until the train entity has actually been created
 		end
 		Wait(200) -- Added a small 'waiting' while the train is loaded (to prevent the)
 				  -- random unexplained spawning of the freight train on the Metro Rails
 		
 		if UseTwoMetros == 1 then
 			MetroTrain2 = CreateMissionTrain(24,-618.0,-1476.8,16.2,true)
-			print("XNL Log: Train 3 created (Metro #2)." )
+			if Debug then print("XNL Log: Train 3 created (Metro #2)." ) end
 			while not DoesEntityExist(MetroTrain2) do
 				Wait(800)
-				print("XNL Log: Waiting for Metro Train 2 to be created" )  -- Also wait until the train entity has actually been created
+				if Debug then  print("XNL Log: Waiting for Metro Train 2 to be created" ) end -- Also wait until the train entity has actually been created
 			end
 		end
 		Wait(200) -- Added a small 'waiting' while the train is loaded (to prevent the)
@@ -436,28 +401,12 @@ Citizen.CreateThread(function()
 		-- Cleanup from memory
 		SetModelAsNoLongerNeeded(TrainDriverHash)
 
-		print("XNL Log: Train System Started, you are currently 'host' for the trains." )
-		TriggerServerEvent('XNL-Trains:playerconnected')
+		if Debug then print("XNL Log: Train System Started, you are currently 'host' for the trains." ) end
 	end
 
 	AddEventHandler("StartTrain", StartTrain)
+	EverythingisK = true -- Added this because the Event isn't fully registered when the Event PlayerSpawned trigger.
 end)
-
---=============================================================
--- Forces to call the Start Train funciton and thus making you
--- the host and instantly spawning NEW trains.
--- WARNING: This function is ONLY meant for testing purposes
--- when making extra script modifications for example.
--- It will NOT clean up exisiting trains and thus resulting in
--- a lot of 'cr*p' on your server. When you have used this
--- function manually and want to resume a 'normal run' of the
--- server you should close all clients to make sure that the
--- trains will dissapear.
---=============================================================
-RegisterCommand("XNLforcetrains",function(source, args)
-	StartTrain()
-end)
-
 
 Citizen.CreateThread(function()
 	ShowedBuyTicketHelper = false
@@ -468,7 +417,7 @@ Citizen.CreateThread(function()
 		if IsPlayerNearTicketMachine then
 			if not IsPlayerUsingTicketMachine  then
 				if not ShowedBuyTicketHelper then
-					DisplayHelpText("Press ~INPUT_CONTEXT~ to to buy a metro ticket ($" .. TicketPrice .. ")")
+					DisplayHelpText(Message[Language]['buyticket'].." ($" .. TicketPrice .. ")")
 					ShowedBuyTicketHelper = true
 				end
 			else
@@ -478,7 +427,7 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustPressed(0, 51) and PlayerHasMetroTicket then	
-				SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "You already have a valid Metro Ticket, please go to one of the stations and board the Metro", true)
+				SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['already_got_ticket'], true)
 				Wait(3500) -- To avoid people 'spamming themselves' with the message popup (3500ms is 'just enough' to take the fun out of it :P)
 			end
 			
@@ -552,7 +501,7 @@ Citizen.CreateThread(function()
 						BankIcon = "CHAR_BANK_FLEECA"
 						BankName = "Fleeca Bank"
 					end
-					SMS_Message(BankIcon, BankName, "Account Information", "Transaction failed, you do not have sufficient funds.", true)
+					SMS_Message(BankIcon, BankName, Message[Language]['account_information'], Message[Language]['account_nomoney'], true)
 				else
 					if PayWithBank == 1 then
 						-- Put YOUR code to deduct the amount from the players BANK account here
@@ -562,7 +511,7 @@ Citizen.CreateThread(function()
 						-- 'Basic Example':  PlayerCash = PlayerCash - TicketPrice
 					end
 				
-					SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "Thank you for your purchase, your ticket will be valid for the current session.", true)
+					SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['ticket_purchased'], true)
 					PlayerHasMetroTicket = true
 				end
 				
@@ -585,7 +534,7 @@ Citizen.CreateThread(function()
 			if IsPlayerInMetro then
 				if XNLCanPlayerExitTrain() then
 					if not XNLTeleportPlayerToNearestMetroExit() then
-						SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "Sorry, it seems that you pressed a little bit to late, you'll have to wait for the next station.", true)
+						SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['stop_toolate'], true)
 					end
 					SkipReEnterCheck = true -- This variable is used to prevent the character from directly trying to re-enter the Metro after leaving it.
 				else
@@ -593,7 +542,7 @@ Citizen.CreateThread(function()
 					if XNLIsPedFemale(playerPed) then
 						XNLGenMess = "Miss"
 					end
-					SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "Sorry " .. XNLGenMess .. ", but it's not allowed to randomly exit the Metro. Please wait for the next station!", true)
+					SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['sorry'].." "..Message[Language][XNLGenMess].." "..Message[Language]['exit_metro_random'], true)
 				end
 			end
 			
@@ -612,7 +561,7 @@ Citizen.CreateThread(function()
 									--==========================================================================
 									-- Notify the player he/she needs to buy a ticket before entering the metro
 									--==========================================================================
-									SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "Sorry, You will need to buy a LST Metro Ticket first.", true)
+									SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['need_ticket'], true)
 							else
 								if IsPlayerWantedLevelGreater(PlayerId(), 0) and AllowEnterTrainWanted == 0 then
 									--==========================================================================
@@ -620,7 +569,7 @@ Citizen.CreateThread(function()
 									-- denied to ENTER the Metro.
 									-- If he/she GETS WHILE wanted on the train, we will handle that furher on
 									--==========================================================================
-									SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "Sorry we do not allow futugives in our Metro's. All passengers should be able to travel safely!", true)
+									SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['have_wantedlevel'], true)
 								else
 									CurrentMetro = Metro
 									MetroX, MetroY, MetroZ = table.unpack(GetOffsetFromEntityInWorldCoords(CurrentMetro, 0.0, 0.0, 0.0))
@@ -634,7 +583,7 @@ Citizen.CreateThread(function()
 									SetEntityCoordsNoOffset(PlayerPedId(), MetroX, MetroY, MetroZ + 2.0)
 									IsPlayerInMetro = true
 									PlayerHasMetroTicket = false
-									SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "You've entered the Metro, your ticket has been invalidated.", true)
+									SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['entered_metro'], true)
 								end
 							end
 						else
@@ -665,7 +614,7 @@ Citizen.CreateThread(function()
 					if IsPedShooting(GetPlayerPed(-1)) then
 						SetPlayerWantedLevel(PlayerId(), 4, 0)
 						SetPlayerWantedLevelNow(PlayerId(), 0)
-						SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "We will NOT tolerate terrorist behaviour on our public transport vehicles!", true)
+						SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['terrorist'], true)
 					end
 				end
 			end
@@ -677,7 +626,7 @@ Citizen.CreateThread(function()
 				IsPlayerNearMetro = false
 				IsPlayerInMetro = false
 				PlayerHasMetroTicket = true
-				SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "Our Appologies, something has gone terribly wrong, you have received a free ticket!", true)
+				SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['no_metro_spawned'], true)
 			else
 				if IsPlayerInMetro then
 					-- This will ensure that it will only show the 'how to leave metro' text while near/at a station
@@ -692,7 +641,7 @@ Citizen.CreateThread(function()
 					if GetDistanceBetweenCoords(x,y,z, MetroX, MetroY, MetroZ, true) > 15.0 then
 						IsPlayerNearMetro = false
 						IsPlayerInMetro = false
-						SMS_Message("CHAR_LS_TOURIST_BOARD", "Los Santos Transit", "Tourist Information", "Thank you for traveling with Los Santos Transit.", true)
+						SMS_Message("CHAR_LS_TOURIST_BOARD", Message[Language]['los_santos_transit'], Message[Language]['tourist_information'], Message[Language]['travel_metro'], true)
 					end
 					
 				end
@@ -734,7 +683,7 @@ Citizen.CreateThread(function()
 				-- is also used to detect if the player is at one of the stations on foot :)
 				if PlayerHasMetroTicket and XNLCanPlayerExitTrain() then
 					if not ShowedEToEnterMetro then
-						DisplayHelpText("Press ~INPUT_CONTEXT~ while facing (and near) the Metro to enter it.")
+						DisplayHelpText(Message[Language]['press_to_enter'])
 						ShowedEToEnterMetro = true
 					end
 				else
@@ -860,6 +809,22 @@ function XNLTeleportPlayerToNearestMetroExit()
 	return false -- The function did NOT detected the player within one of the radius markers at the stations
 end
 
-AddEventHandler("playerSpawn", function()
-	TriggerServerEvent('XNL-Trains:playerconnected')
+
+-- Added for OneSync
+
+Citizen.CreateThread(function() -- Suggest by Daniel_Martin, making train work like GTA:O
+  SwitchTrainTrack(0, true)
+  SwitchTrainTrack(3, true)
+  N_0x21973bbf8d17edfa(0, 120000)
+  SetRandomTrains(1)
+end)
+
+local firstspawn = 0 -- By default, Its the first spawn of the player. So, I don't recommend to restart the script with already player in the server.
+
+AddEventHandler('playerSpawned', function()
+	while EverythingisK == false do Citizen.Wait(0) end -- The Event "StartTrain" is fully registered. We can continue now.
+	if firstspawn == 0 then -- First spawn of the player ? Check if they are already trains
+		TriggerServerEvent('XNL-Trains:PlayerSpawned')
+		firstspawn = 1 -- Just for making not trigger the event if he respawn after die.
+	end
 end)
