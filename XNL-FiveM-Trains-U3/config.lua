@@ -4,9 +4,9 @@
 -- other users to make it more easy to adapt to their roleplay
 -- server for example.
 --=============================================================
-PayWithBank 			= 0		-- Change this to 1 if you want users to pay with bank card (NOTE: Do implement your OWN banking system here please!)
+PayWithBank 			= 25		-- Change this to 1 if you want users to pay with bank card (NOTE: Do implement your OWN banking system here please!)
 UserBankIDi 			= 3		-- 1 = Maze, 2 = Bank Of Liberty, 3 = Fleeca  (This will show the corresponding message when the player doesn't have enoug money)
-AllowEnterTrainWanted	= 0		-- Change to 1 if you want to allow players to ENTER the train when they have a wanted level
+AllowEnterTrainWanted	= 1		-- Change to 1 if you want to allow players to ENTER the train when they have a wanted level
 TicketPrice				= 25	-- Change to any value YOU think is suitable for a Metro Ticket in your (RP) Server
 StationsExitScanRadius	= 15.0	-- I would RECOMMEND to leave it at 15 for best detection in trains, this variable sets the 'scan radius size' per station marker.
 								-- NOTE: The StationsExitScanRadius HAS TO BE A FLOAT! (15.0 for example (which is the default!))
@@ -39,8 +39,9 @@ TrainLocations = {
 -- Language available actually : 
 -- en (English)
 -- fr (Français)
+-- es (Spanish)
 
-Language = 'fr' 
+Language = 'en' 
 Message = {}
 
 Message['en'] = {
@@ -85,4 +86,26 @@ Message['fr'] = {
 	['terrorist'] = "Nous ne tolérerons PAS le comportement terroriste sur nos véhicules de transport public !",
 	['no_metro_spawned'] = "Nos escuses, quelque chose s'est mal passé, vous avez reçu un billet gratuit!",
 	['travel_metro'] = "Merci de voyager avec Los Santos Transit.",
+}
+
+Message['es'] = {
+	['buyticket'] = "Pulsa ~INPUT_CONTEXT~ comprar un billete de metro",
+	['press_to_enter'] = "Pulsa ~INPUT_CONTEXT~ enfrente (y cerca) del Metro para entrar.",
+	['los_santos_transit'] = "Los Santos Transit",
+	['tourist_information'] = "Información turística",
+	['already_got_ticket'] = "Ya tiene un boleto de metro válido, vaya a una de nuestras estaciones y suba a un metro",
+	['account_information'] = "Información de la cuenta",
+	['account_nomoney'] = "Transacción fallida, saldo insuficiente",
+	['ticket_purchased'] = "Gracias por su compra, su entrada será válida durante su sesión actual.",
+	['stop_toolate'] = "Lo siento, parece que presionaste demasiado tarde, tienes que esperar a la siguiente estación.",
+	['sorry'] = "Lo siento",
+	['exit_metro_random'] = ", pero no está permitido salir del Metro al azar. Espere la próxima estación !",
+	['Sir'] = "señor",
+	['Miss'] = "señorita",
+	['need_ticket'] = "Lo siento, primero debes comprar un boleto de Metro.",
+	['have_wantedlevel'] = "Lo sentimos, no toleramos fugitivos en nuestro Metro. Todos los pasajeros deben viajar con seguridad !",
+	['entered_metro'] = "Has entrado en Metro, tu billete ha sido invalidado.",
+	['terrorist'] = "NO toleraremos el comportamiento terrorista en nuestros vehículos de transporte público. !",
+	['no_metro_spawned'] = "Nuestras excusas, algo salió mal, recibiste un boleto gratis!",
+	['travel_metro'] = "Gracias por viajar con Los Santos Transit.",
 }
