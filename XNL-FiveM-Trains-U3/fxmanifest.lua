@@ -1,5 +1,14 @@
 fx_version 'bodacious'
 game  'gta5'
-client_script 'client.lua'
-server_script 'server.lua'
+
+client_scripts {
+	'config.lua',
+	'client.lua'
+}
+
+server_scripts {
+	'config.lua',
+	'server.lua'
+}
+
 this_is_a_map 'yes'
