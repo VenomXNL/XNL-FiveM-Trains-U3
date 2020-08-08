@@ -1,9 +1,16 @@
+	================================================================================
+	IF there are questions, help needed or anything, please use the FiveM FORUM
+	topic to discuss and help each other.
+	================================================================================
+
+
 	Based on/inspired by: 
 	Blumlaut (FiveM Community) / Bluethefurry (Github)
 	Original Post:	 https://forum.fivem.net/t/release-trains/28841
 	Original Script: https://github.com/Bluethefurry/FiveM-Trains/releases
-	
-	(Re-)Created by: VenomXNL
+	Reworked by VenomXNL: https://forum.cfx.re/t/release-fivem-freight-train-ai-and-enterable-trams-as-passenger-suited-for-roleplay-to/
+
+	(Re-) Worked by: Nickoos
 	License: Use it as you please but do have decency and respect by crediting the original creators :)
 	
 	What is it?: A very extensive Train and (well mostely) Metro Addon for FiveM
@@ -121,4 +128,4 @@
 	I hope this code/addon is usefull for some people or that they might learn from it by using parts of it :)
 	
 	Greets,
-	VenomXNL
+	VenomXNL & Nickoos
