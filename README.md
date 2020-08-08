@@ -1,18 +1,6 @@
 	================================================================================
 	IF there are questions, help needed or anything, please use the FiveM FORUM
 	topic to discuss and help each other.
-
-	This mod contains SERIOUS ISSUES due to several conflicting scripts, 
-
-	Appearently those whom complained to me about it not working with THEIR OneSync:
-	I just received several screenshots of the script actally working IN ONESYNC.
-	So it DOES work, however it still does seem to conflict with several other functions
-	and I DO NOT KNOW where, how or why (I/we didn't had issues though), but for that matter:
-	I have stopped developing FiveM Mod's anyway ;)
-
-	If anyone wants to 'take over' this project, then you are free to do so :)
-	If you do, just be respectful and credit the original authors (me AND Blumlaut),
-	if you resume on my/our work.
 	================================================================================
 
 
