@@ -9,60 +9,47 @@
 	Original Post:	 https://forum.fivem.net/t/release-trains/28841
 	Original Script: https://github.com/Bluethefurry/FiveM-Trains/releases
 	Reworked by VenomXNL: https://forum.cfx.re/t/release-fivem-freight-train-ai-and-enterable-trams-as-passenger-suited-for-roleplay-to/
+	Last Updated:	 02-01-2024
 
-	(Re-) Worked by: Nickoos
 	License: Use it as you please but do have decency and respect by crediting the original creators :)
 	
 	What is it?: A very extensive Train and (well mostely) Metro Addon for FiveM
 	
+	===================================================================================================================================================================
+	2024 Update:
+	===================================================================================================================================================================
+	This script has been updated ONCE now because suddenly lots of people started making requests for it again, this is however a ONE TIME UPDATE!
+	I don't script/mod/develop for FiveM anymore, but did wanted to help the community out a bit with this update, because the guy who took over from me
+	also has left FiveM (as it seems).
+	
+	I will however NOT provide future support on this script, because I REALLY don't have the time for these games (like FiveM etc) lately.
+	It is intended to configure and adapt a bit for YOUR OWN server, so please read the comments and instruction to do so :)
+
+	NOTE: The code might (is) still a bit messy, but that is because (like mentioned) I seriously lack the time to work on projects like this these days,
+	      I have just scrapped and 're-written' large portions of my old version and modified it to a MUCH simpler approach, and had to do this with lots of 'forgotten
+		  knowledge' after not having scripted for FiveM for many years. So please keep that in mind please :)
+	===================================================================================================================================================================
+
+	
 	Basic Functionality list:
-	  - Spawns a 'synced' (and working/driving) Freight train on the railroad tracks of Los Santos
-	  - Spawns (1 or 2) Metro carts which can be entered as passenger by the players ("no passenger limit!")
-	  - Players can WALK AROUND in the moving Metro! :)
-	  - Players HAVE to buy a Metro Ticket to be able to enter (With (ATM) animated Ticket machine handling)
-	  - Ticket will 'invalidate' when they have entered so they will have to buy a new one
-	  - Wanted level handling (refuse passengers from entering when wanted)
+	  - Activates the 'normal game trains'
+	  - Players can WALK AROUND in the moving Metro, just by walking in :)
+	  - Players HAVE to buy a Metro Ticket to enter (With (ATM) animated Ticket machine handling), otherwise they will get a 1 star wanted level for illegal boarding.
+	  - Ticket will 'invalidate' when they have left the metro (even if it's at the same station!) so they will have to buy a new one
 	  - 'terrorist detection', which means if players shoot while on the train they will get a 4 star wanted level
 	  - Easily configurable with basic variables
 	  - Different Bank Messages (for Maze Bank, Bank of Liberty or Fleeca bank)
-	  - Metro's, Freight Train and their drivers are 'invincible' (to prevent others 'ruining' the game/RP)
-	  - Players can only EXIT the Metro at the stations (by Pressing [E] by default)
-	  - Players COULD enter the Metro ANYWHERE (if they have a Ticket Of course), by making it stop (stand in front of it)
 	  
 	Known 'bugs' or 'issues':
-	  - The Metro's DO NOT stop at the stations this is due to a limitation in the 'official game script'!
-	    I CAN change this and HAD changed this, but this will increase the chance of de-syncing A LOT so I've removed it!
-	  - When you enter the Metro as passenger the doors 'will dissapear', why? I don't know, but you can NOT walk through it!
-		NOTE: They CAN still be used as cover though (the bottom part), which means the 'collision info' will remain active though.
+	  - From the inside the doors of the Metro are invisible and you can walk straight through them (and thus also while the train is moving!)
+		and they even seem to dissapear if you walk through them if they are closed, this seems to be a 'model issue' with the vehicle, 
+		not sure though and don't have time to figure this out sorry!
 	  - The ticket machines above ground (the green/old ones) DO NOT WORK, I tried for several hours to find them in the archives but
 		with no luck. I however did find one that looks like it, but that one doesn't respond at all.
 		I MIGHT update that when someone can tell me the model of that ticket machine object, however for now I have left it at that.
 		Also because the original game-texture says: "Sorry, this machine will NEVER work", so i thought: lets keep it in lore :P (nice excuse huh? haha)
-	  - When a player puts a vehicle (which doesn't automatically despawns) infront of the Metro, the Metro will wait there till the
-		vehicle is removed for eternity.
 	  
-	Questions I've already got from our server member/crew while we where testing this script:
-	  - Q: Can you make it so you can drive the Freight or Metro?
-	  - A: Yes, I can.
-	  
-	  - Q: WILL you make it so we can drive either of them?
-	  - A: Already done it, Let's test it :P
-	  
-	  - Q: (Player on the other side while i'm driving the train:) Woaha, why the f*ck is my train tripping so hard?
-	  - A: Well mine isn't, Maybe it's because i'm driving backwards but YOUR game (engine) isn't expecting it.
-	  
-	  - Q: So you have now (permanently) removed the feature to drive the trains?
-	  - A: Yes, I have. And I have even DELETED THE CODE, so I will NOT remake it, since it's not stable enough.
-	  
-	  Well that's about the 'main question' I expect to show up (since nearly everyone whom tested it did so to)
-	  So my basic awnser is: NOPE I will note make it like that sorry.
-	  Maybe there are others whom have managed to do it, and did made a syncing system (server sided or so), I haven't
-	  and I won't, Sorry. Most of my scripts and server are client-sided with minimal network traffic (via scripting),
-	  only statistics, financials and owned matterials (like houses, cars or items) are server sided to prevent cheating.
-	  And since we won't need the train or metro driver missions I can't 'afford' to put to much time in developing something
-	  stable and thoroughly tested while I'm not going to use it anyway ;)
-	  
-	Other Possible Questions:
+	Possible Questions:
 	  - Q: Can I use this on my server?
 	  - A: Sure you can that's why I've uploaded it :)
 	  
@@ -128,4 +115,4 @@
 	I hope this code/addon is usefull for some people or that they might learn from it by using parts of it :)
 	
 	Greets,
-	VenomXNL & Nickoos
+	VenomXNL
