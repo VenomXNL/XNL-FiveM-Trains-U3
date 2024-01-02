@@ -197,6 +197,7 @@ Citizen.CreateThread(function()
 	-- All the code now spawns trains (using the normal ingame engine to do it instead of letting it get handled by one player)
 	SwitchTrainTrack(0, true) 					-- Main train track(s) around LS and towards Sandy Shores 
 	SwitchTrainTrack(3, true) 					-- Metro tracks 
+	-- NOTE: You can lower the 120000 numbers bellow to make the trains spawn more often, but this is NOT recommended!
 	SetTrainTrackSpawnFrequency(0, 120000)		-- The Train spawn frequency set for the game engine 
 	SetTrainTrackSpawnFrequency(3, 120000)		-- The Metro spawn frequency set for the game engine 
 	SetRandomTrains(true)						-- Telling the game we want to use randomly spawned trains end)
