@@ -478,9 +478,5 @@ end
 -- with some scripts.
 --==============================================
 function XNLIsPedFemale(ped)
-	if IsPedModel(ped, 'mp_f_freemode_01') then
-		return true
-	else
-		return false
-	end
+	return IsPedModel(ped, 'mp_f_freemode_01')
 end
