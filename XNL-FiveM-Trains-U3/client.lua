@@ -201,6 +201,12 @@ Citizen.CreateThread(function()
 	SetTrainTrackSpawnFrequency(0, 120000)		-- The Train spawn frequency set for the game engine 
 	SetTrainTrackSpawnFrequency(3, 120000)		-- The Metro spawn frequency set for the game engine 
 	SetRandomTrains(true)						-- Telling the game we want to use randomly spawned trains end)
+ 	-- 22-07-2024: Added this native which was found and reported to me by: BigHE4d
+	-- on the FixeM CFX.re forum, thanks mate :)
+	-- https://forum.cfx.re/t/release-fivem-freight-train-ai-and-enterable-trams-as-passenger-suited-for-roleplay-to/268613/255
+	-- NOTE: Due to me not playing FiveM for quite a while anymore, and might be quite a while until
+	-- I will (be able) to return, I have NOT tested this native call!
+	SetTrainsForceDoorsOpen(false) 
 end)
 
 
